@@ -39,4 +39,5 @@ models:
   weather:
     # Applies to all files under models/example/
     dbt_weather_data:
-      +materialized: table
+      cleaned_weather_data:
+        +materialized: table
