@@ -1,4 +1,4 @@
-CREATE TABLE `weather-dbdelay.weather_data.cleaned_weather_data` AS
+CREATE OR REPLACE VIEW `weather-dbdelay`.`weather_data`.`cleaned_weather_data` AS
 WITH base_data AS (
     SELECT
         *,
