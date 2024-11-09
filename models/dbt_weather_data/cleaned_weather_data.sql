@@ -3,7 +3,7 @@ WITH base_data AS (
         *,
         -- Convert and split the `time` column into date and time
         DATE(CURRENT_DATE()) AS date, -- Replace with the actual date column if present
-        TIME(time) AS clean_time,
+        TIME(PARSE_TIME('%H:%M:%S', time)) AS clean_time,
         -- Extract condition text by parsing the JSON-like structure
         REGEXP_EXTRACT(condition, "'text': '(.*?)'") AS clean_condition
     FROM `weather-dbdelay.weather_data.germany_weather` -- Replace 'raw_weather_data' with your source table name
@@ -50,4 +50,4 @@ cleaned_data AS (
     FROM base_data
 )
  
-SELECT * FROM cleaned_data;
+SELECT * FROM cleaned_data
