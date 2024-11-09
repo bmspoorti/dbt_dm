@@ -1,12 +1,11 @@
 WITH base_data AS (
     SELECT
         *,
-        DATE(CURRENT_DATE()) AS date, -- Replace with actual date column if available
-        TIME(PARSE_TIME('%H:%M:%S', time)) AS clean_time, -- Adjust format based on actual data
-        REGEXP_EXTRACT(condition, "'text': '(.*?)'") AS clean_condition
+        DATE(PARSE_DATE('%Y-%m-%d', SUBSTR(time, 1, 10))) AS date, -- Extracts the date part
+        TIME(PARSE_TIME('%H:%M:%S', SUBSTR(time, 12, 8))) AS clean_time -- Extracts the time part
     FROM `weather-dbdelay.weather_data.germany_weather`
 ),
- 
+
 cleaned_data AS (
     SELECT
         date,
@@ -14,7 +13,7 @@ cleaned_data AS (
         temp_c,
         temp_f,
         is_day,
-        clean_condition AS condition,
+        REGEXP_EXTRACT(condition, "'text': '(.*?)'") AS clean_condition,
         wind_mph,
         wind_kph,
         wind_degree,
