@@ -6,7 +6,7 @@ WITH base_data AS (
         TIME(time) AS clean_time,
         -- Extract condition text by parsing the JSON-like structure
         REGEXP_EXTRACT(condition, "'text': '(.*?)'") AS clean_condition
-    FROM 'germany_weather' -- Replace 'raw_weather_data' with your source table name
+    FROM `weather-dbdelay.weather_data.germany_weather` -- Replace 'raw_weather_data' with your source table name
 ),
  
 cleaned_data AS (
