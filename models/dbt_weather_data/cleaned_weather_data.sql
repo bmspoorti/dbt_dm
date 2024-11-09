@@ -1,17 +1,15 @@
+CREATE TABLE `weather-dbdelay.weather_data.cleaned_weather_data` AS
 WITH base_data AS (
     SELECT
         *,
-        -- Convert and split the `time` column into date and time
-        DATE(CURRENT_DATE()) AS date, -- Replace with the actual date column if present
-        TIME(PARSE_TIME('%H:%M:%S', time)) AS clean_time,
-        -- Extract condition text by parsing the JSON-like structure
+        DATE(CURRENT_DATE()) AS date, -- Replace with actual date column if available
+        TIME(PARSE_TIME('%H:%M:%S', time)) AS clean_time, -- Adjust format based on actual data
         REGEXP_EXTRACT(condition, "'text': '(.*?)'") AS clean_condition
-    FROM `weather-dbdelay.weather_data.germany_weather` -- Replace 'raw_weather_data' with your source table name
+    FROM `weather-dbdelay.weather_data.germany_weather`
 ),
  
 cleaned_data AS (
     SELECT
-        -- Remove unwanted columns
         date,
         clean_time AS time,
         temp_c,
@@ -49,5 +47,4 @@ cleaned_data AS (
         city
     FROM base_data
 )
- 
 SELECT * FROM cleaned_data
