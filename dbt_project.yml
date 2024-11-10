@@ -38,7 +38,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   weather:
     dbt_weather_data:
-      cleaned_weather_data:
-        +materialized: table
-      joined_weather_delays:
+      base:
+        +materialized: view
+      intermediate:
+        +materialized: view
+      final:
         +materialized: table
