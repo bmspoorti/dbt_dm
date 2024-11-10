@@ -1,8 +1,8 @@
 WITH base_data AS (
     SELECT
         *,
-        DATE(PARSE_DATE('%Y-%m-%d', SUBSTR(time, 1, 10))) AS date, -- Extracts the date part
-        TIME(PARSE_TIME('%H:%M:%S', SUBSTR(time, 12, 8))) AS clean_time -- Extracts the time part
+        DATE(PARSE_DATE('%Y-%m-%d', SUBSTR(time, 1, 10))) AS date,
+        TIME(PARSE_TIME('%H:%M:%S', SUBSTR(time, 12, 8))) AS clean_time 
     FROM `weather-dbdelay.weather_data.germany_weather`
 ),
 
